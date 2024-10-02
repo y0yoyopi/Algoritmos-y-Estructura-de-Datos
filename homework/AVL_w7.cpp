@@ -314,3 +314,16 @@ void inorderTraversal(TreeNode* root, vector<int>& elements) {
 
         return root;
     }
+
+
+    TreeNode* AVL2BST(vector<int>& nums, int left, int right) {
+        if (left > right) return nullptr;
+
+        int mid = (left + right) / 2;
+        TreeNode* root = new TreeNode(nums[mid]);
+
+        root->left = AVL2BST(nums, left, mid - 1);
+        root->right = AVL2BST(nums, mid + 1, right);
+
+        return root;
+    }
