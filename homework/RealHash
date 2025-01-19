@@ -31,6 +31,10 @@ public:
         head = newNode;
     }
 
+    bool isEmpty() const {
+        return head == nullptr; // Verifica si la lista está vacía
+    }
+
     // Destructor para liberar memoria
     ~List() {
         Nodo* current = head;
