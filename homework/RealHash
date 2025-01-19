@@ -69,4 +69,15 @@ public:
         int index = hashFunction(value);
         table[index].insert(value);
     }
+
+    // Función para contar los índices ocupados
+    int countOccupiedIndices() const {
+        int count = 0;
+        for (const List& list : table) {
+            if (!list.isEmpty()) {
+                count++;
+            }
+        }
+        return count;
+    }
 };
