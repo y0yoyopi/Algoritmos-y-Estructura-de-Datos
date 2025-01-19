@@ -56,8 +56,9 @@ private:
     // Función hash simple basada en el módulo
     int hashFunction(string key) {
         int hashValue = 0;
+        int prime = 31; // Número primo para una mejor distribución
         for (char ch : key) {
-            hashValue = (hashValue + ch) % capacity;  // Suma los caracteres y aplica módulo
+            hashValue = (hashValue * prime + ch) % capacity;
         }
         return hashValue;
     }
