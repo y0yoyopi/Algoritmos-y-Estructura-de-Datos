@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Nodo {
+    string data;
+    Nodo* next;
+
+    Nodo(string d) : data(d), next(nullptr) {}
+};
+
+class List {
+private:
+    Nodo* head;
+
+public:
+    List() : head(nullptr) {}
+
+    void insert(string value) {
+        Nodo* current = head;
+        while (current != nullptr) {
+            if (current->data == value) {
+                return;  // No insertar duplicados
+            }
+            current = current->next;
+        }
+        Nodo* newNode = new Nodo(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Destructor para liberar memoria
+    ~List() {
+        Nodo* current = head;
+        while (current != nullptr) {
+            Nodo* next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+};
+
+// Tabla Hash con chaining
+
+class HashTable {
+private:
+    vector<List> table; // Vector de List
+    int capacity;
+
+    // Función hash simple basada en el módulo
+    int hashFunction(string key) {
+        int hashValue = 0;
+        for (char ch : key) {
+            hashValue = (hashValue + ch) % capacity;  // Suma los caracteres y aplica módulo
+        }
+        return hashValue;
+    }
+
+public:
+    // Constructor
+    HashTable(int cap) : capacity(cap) {
+        table.resize(capacity);
+    }
+
+    // Insertar si no existe (para evitar duplicados)
+    void insert(string value) {
+        int index = hashFunction(value);
+        table[index].insert(value);
+    }
+};
